@@ -8,12 +8,19 @@ export function HeaderComponent() {
 	const [openMenu, setOpenMenu] = useState(false)
 	const [width, setWidth] = useState(window.innerWidth)
 	
+	const handleResize = () => {
+		setWidth(window.innerWidth)
+	}
+
 	useEffect(() => {
-		window.addEventListener('resize', () => {
-			setWidth(window.innerWidth)
-		})
+		window.addEventListener('resize', handleResize) // create suscription
+
 		if (width >= 768) {
 			setOpenMenu(false)
+		}
+
+		return () => {
+			window.removeEventListener('resize', handleResize) // Clear suscription
 		}
 	}, [width])
 	
